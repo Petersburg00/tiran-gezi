@@ -3,7 +3,7 @@
   "use strict";
 
   const { home: HOME } = window.TRIP;
-  const PLACES = window.PLACES, PLANS = window.PLANS, CATS = window.CATS, IMG = window.IMAGES || {};
+  const PLACES = window.PLACES, PLANS = window.PLANS, CATS = window.CATS, IMG = window.IMAGES || {}, STORIES = window.STORIES || [];
   const byId = Object.fromEntries(PLACES.map(p => [p.id, p]));
   byId.home = { id: "home", name: "Konaklama", lat: HOME.lat, lng: HOME.lng, price: { lek: 0, txt: "" }, cats: [] };
 
@@ -58,6 +58,7 @@
     money: '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
     walk: '<circle cx="13" cy="4" r="1.6"/><path d="m9 21 2-6 3 3v3M8 12l2-4 4 1 2 4M10 8l1 7"/>',
     house: '<path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/>',
+    book: '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M19 19v2H6"/>',
     heart: '<path d="M16 28c7-4.7 14-10 14-17a7 7 0 0 0-14-2.6A7 7 0 0 0 2 11c0 7 7 12.3 14 17z"/>'
   };
   const svg = (k, extra = "") => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${I[k]}</svg>`;
@@ -116,6 +117,7 @@
     if (view === "explore") setTimeout(() => map.invalidateSize(), 50);
     if (view === "plans") { if (!planMapReady) initPlanMap(); setTimeout(() => { planMap.invalidateSize(); drawPlan(); }, 60); }
     if (view === "votes") renderVotes();
+    if (view === "read") renderRead();
     store.set("tg_view", view);
   }
   $$("[data-view]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); show(b.dataset.view); }));
@@ -268,6 +270,7 @@
   });
 
   // ── detay modalı ──
+  function storiesWith(id) { return STORIES.filter(s => s.places.includes(id)); }
   function plansWith(id) { return PLANS.filter(pl => pl.days.some(d => d.steps.some(s => s[1] === id))); }
   function openDetail(id) {
     const p = byId[id]; if (!p || id === "home") return;
@@ -288,6 +291,7 @@
           ${vc.length ? `<span class="fact red">♥ ${vc.length} oy: ${esc(vc.join(", "))}</span>` : ""}
         </div>
         ${p.status ? `<div class="warnbox">⚠️ <span>${esc(p.status)}</span></div>` : ""}
+        ${p.how ? `<div class="howbox">${svg("bus")}<div><b>Nasıl gidilir?</b><span>${esc(p.how)}</span></div></div>` : ""}
         <div class="hr"></div>
         <div class="infogrid">
           <div class="ig">${svg("money")}<div><b>Giriş ücreti</b><span>${esc(p.price.txt)}${p.price.note ? " · " + esc(p.price.note) : ""}</span></div></div>
@@ -301,6 +305,7 @@
           <h3>Neden önemli?</h3><p>${esc(p.why)}</p>
           <h3>İpuçları</h3><p>${esc(p.tips)}</p>
         </div>
+        ${storiesWith(p.id).length ? `<h3>Bu yerin hikâyesini okuyun</h3><div class="storylinks">${storiesWith(p.id).map(st => `<button class="slink" data-story="${st.id}">${svg("book", 'width="16" height="16"')}<span><b>${esc(st.title)}</b><small>${esc(st.era)} · ${st.read} dk okuma</small></span></button>`).join("")}</div>` : ""}
         ${pls.length ? `<h3>Bu yer şu planlarda</h3><div class="inplans">${pls.map(pl => `<span class="tagp" style="background:${pl.color}">${esc(pl.name)}</span>`).join("")}</div>` : ""}
         <div class="actions">
           <button class="btn primary" data-mfav="${p.id}">${favs.has(p.id) ? "♥ Favorilerimde" : "♡ Favorilere ekle"}</button>
@@ -315,6 +320,8 @@
   function closeDetail() { const md = $("#modal"); md.classList.remove("open"); md.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
   $("#modal").addEventListener("click", e => {
     if (e.target.closest("[data-close]")) return closeDetail();
+    const so = e.target.closest("[data-story]"); if (so) return openStory(so.dataset.story);
+    const pl = e.target.closest("[data-place]"); if (pl) return openDetail(pl.dataset.place);
     const f = e.target.closest("[data-mfav]");
     if (f) { toggleFav(f.dataset.mfav); f.textContent = favs.has(f.dataset.mfav) ? "♥ Favorilerimde" : "♡ Favorilere ekle"; return; }
     const mm = e.target.closest("[data-mmap]");
@@ -405,6 +412,84 @@
     curPlan = b.dataset.plan; renderPlans(); drawPlan();
   });
   $("#planBody").addEventListener("click", e => { const s = e.target.closest("[data-step]"); if (s) openDetail(s.dataset.step); });
+
+  // ── okuma: tarih yazıları ve rota kitapçığı ──
+  let curBook = null;
+  function openModal(html) {
+    $("#modalBody").innerHTML = html;
+    const md = $("#modal"); md.classList.add("open"); md.setAttribute("aria-hidden", "false");
+    $(".modal-card").scrollTop = 0;
+    document.body.style.overflow = "hidden";
+  }
+  function openStory(id) {
+    const i = STORIES.findIndex(s => s.id === id); if (i < 0) return;
+    const st = STORIES[i], next = STORIES[(i + 1) % STORIES.length];
+    const cover = byId[st.img];
+    openModal(`
+      ${cover ? photo(cover, "hero") : ""}
+      <div class="mb-in story">
+        <div class="eyebrow">${esc(st.era)} · ${st.read} dk okuma</div>
+        <h2 id="mTitle">${esc(st.title)}</h2>
+        <p class="lede">${esc(st.lead)}</p>
+        <div class="prose">
+          ${st.sections.map(sc => `<h3>${esc(sc.h)}</h3>${sc.p.map(x => `<p>${esc(x)}</p>`).join("")}`).join("")}
+        </div>
+        <div class="hr"></div>
+        <h3>Bu yazıda geçen yerler</h3>
+        <div class="placechips">${st.places.filter(pid => byId[pid]).map(pid => `<button class="pchip" data-place="${pid}">${photo(byId[pid], "pthumb")}<span>${esc(byId[pid].name)}</span></button>`).join("")}</div>
+        <div class="actions">
+          <button class="btn primary" data-story="${next.id}">Sonraki yazı: ${esc(next.title)} →</button>
+          <button class="btn ghost" data-close>Kapat</button>
+        </div>
+      </div>`);
+  }
+  function bookletHTML(pl) {
+    const seen = new Set();
+    return pl.days.map((d, di) => {
+      const items = d.steps.filter(s => byId[s[1]] && !seen.has(s[1]) && !byId[s[1]].cats.includes("practical") && seen.add(s[1]));
+      return `<div class="bday"><h3><span class="dn" style="background:${["#FF385C", "#00A699"][di]}">${di + 1}</span>${esc(d.d)} <small>${esc(d.t)}</small></h3>
+        ${items.map(s => {
+          const p = byId[s[1]], sts = storiesWith(p.id);
+          return `<article class="bitem">
+            <div class="bhead"><span class="tm">${esc(s[0])}</span><div><b>${esc(p.name)}</b><small>${esc(p.local)} · ${esc(p.price.txt)} · ${esc(p.dur)}</small></div></div>
+            <p>${esc(p.history)}</p>
+            <p><b>Neden önemli?</b> ${esc(p.why)}</p>
+            <p class="muted small"><b>İpucu:</b> ${esc(p.tips)}${p.how ? ` <b>Ulaşım:</b> ${esc(p.how)}` : ""}</p>
+            <div class="blinks"><button class="lnk" data-place="${p.id}">Detay ve harita</button>${sts.map(x => `<button class="lnk" data-story="${x.id}">${svg("book", 'width="14" height="14"')} ${esc(x.title)}</button>`).join("")}</div>
+          </article>`;
+        }).join("")}</div>`;
+    }).join("");
+  }
+  function renderRead() {
+    if (!curBook || !PLANS.find(p => p.id === curBook)) curBook = curPlan;
+    const pl = PLANS.find(p => p.id === curBook);
+    $("#readBody").innerHTML = `
+      <h1>Okuma</h1>
+      <p class="muted lead">Gitmeden önce ya da yolda okumak için: Tiran'ın 400 yıllık hikâyesi ${STORIES.length} yazıda, altta da seçtiğiniz plandaki her yerin tarihçesi sırasıyla.</p>
+      <h2>Tiran'ın hikâyesi</h2>
+      <div class="storygrid">${STORIES.map((st, i) => `<button class="scard" data-story="${st.id}">
+        <div class="sph">${byId[st.img] ? photo(byId[st.img]) : ""}<span class="sno">${i + 1}</span></div>
+        <div class="smeta"><small>${esc(st.era)} · ${st.read} dk</small><b>${esc(st.title)}</b><span>${esc(st.lead)}</span></div></button>`).join("")}</div>
+
+      <h2 id="kitapcik">Rota kitapçığı</h2>
+      <p class="muted">Bir plan seçin. O plandaki yerlerin tarihçesi, önemi ve ipuçları ziyaret sırasıyla tek sayfada.</p>
+      <div class="row gap wrap bookbar">
+        <label for="bookSel" class="lbl">Plan</label>
+        <select id="bookSel">${PLANS.map(p => `<option value="${p.id}"${p.id === curBook ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</select>
+        <button class="btn ghost" id="bookPrint">Yazdır / PDF</button>
+      </div>
+      <div id="booklet">${bookletHTML(pl)}</div>`;
+  }
+  $("#readBody").addEventListener("click", e => {
+    if (e.target.closest("#bookPrint")) return window.print();
+    const so = e.target.closest("[data-story]"); if (so) return openStory(so.dataset.story);
+    const pl = e.target.closest("[data-place]"); if (pl) return openDetail(pl.dataset.place);
+  });
+  $("#readBody").addEventListener("change", e => {
+    if (e.target.id !== "bookSel") return;
+    curBook = e.target.value;
+    $("#booklet").innerHTML = bookletHTML(PLANS.find(p => p.id === curBook));
+  });
 
   // ── oylar ──
   $("#myName").value = myName;
@@ -518,13 +603,32 @@
         <p class="small"><b>Önerimiz:</b> 22:40 varışta ve 02:35 dönüşte <b>taksi</b>. Gece otobüs seferleri düzensiz, 3 kişi için taksi farkı küçük. Dönüş taksisini Pazar öğlen ev sahibine ya da bir taksi firmasına ayarlatın.</p>
       </section>
 
-      <section class="info-sec">
-        <h2>Şehir içi ulaşım</h2>
+      <section class="info-sec" id="ulasim">
+        <h2>Toplu taşıma ve şehir içi ulaşım</h2>
+        <p class="muted small">Kısa özet: merkezde her yere yürüyün. Dajti ve Bunk'Art 1 için L11 otobüsü ya da taksi, Bektaşi Merkezi, Şehitlik ve Petrela için taksi. Metro ve tramvay yok, banliyö treni henüz açılmadı.</p>
+        <div class="cols2">
+          <div class="card-box"><b>Şehir otobüsü</b>
+            <ul class="tight">
+              <li>Tek fiyat: <b>40 L</b>, her hatta aynı. Kart ya da uygulama yok.</li>
+              <li>Binince araçtaki <b>biletçiye</b> (ya da şoföre) nakit verin, kâğıt bilet keser. Bozuk para ya da küçük banknot taşıyın.</li>
+              <li>Örnek: L11 ≈05:30–24:00 arası, 5–20 dk arayla. Hat numarası ve son durak otobüsün önünde yazar.</li>
+              <li>Güzergâh için <b>Moovit</b> uygulaması Tiran hatlarını gösteriyor.</li>
+            </ul>
+          </div>
+          <div class="card-box"><b>İşinize yarayacak hatlar</b>
+            <ul class="tight">
+              <li><b>L11 Porcelan</b> (açık mavi): Saat Kulesi/Biblioteka durağından → <b>Dajti Ekspres</b> ve <b>Bunk'Art 1</b>. ≈25–30 dk. Planlardaki Pazar sabahı için.</li>
+              <li><b>LU-NA / Rinas Express</b>: Kültür Sarayı'nın (Opera) arkasından havalimanına saat başı, <b>400 L</b>, ≈30–40 dk. Şehir otobüsü değil, ayrı şirket.</li>
+              <li>Bektaşi Merkezi, Şehitlik ve Petrela için hat aktarması uğraştırıcı: 3 kişiyle <b>taksi</b> daha mantıklı.</li>
+            </ul>
+          </div>
+        </div>
         <dl class="kv">
-          <dt>Yürüyerek</dt><dd>Merkez, Blloku, Piramit, Kale ve Yeni Pazar birbirine 5–20 dakika. Plan Cumartesi'yi tamamen yürüyerek yapıyor.</dd>
-          <dt>Taksi</dt><dd>Açılış ≈300–350 L (gece daha yüksek), sonra km başına ≈95–120 L. Taksimetreyi açtırın ya da fiyatı önceden konuşun. Merkezden Bunk'Art 1 ya da Dajti ≈700–1.000 L, Bektaşi Merkezi ≈400–600 L.</dd>
-          <dt>Şehir otobüsü</dt><dd>Bilet ≈40–50 L, şoföre ya da görevliye nakit. Dajti teleferiğine merkezden otobüs de var ama 3 kişi için taksi daha pratik.</dd>
-          <dt>Günübirlik</dt><dd>Krujë ve Durrës otobüsleri şehir dışındaki <b>Kuzey-Güney Otogarı</b>'ndan (Terminali Veri-Jug) kalkıyor, ≈200 L. Krujë için 3 kişi şoförlü araç ya da pazarlıklı taksi tutmak (gidiş-dönüş + bekleme) daha rahat.</dd>
+          <dt>Yürüyerek</dt><dd>Merkez, Kale, Yeni Pazar, Bulvar, Piramit ve Blloku birbirine 5–20 dakika. Bütün Cumartesi programları yürüyerek yapılıyor. Trafik karışık: yaya geçidinde bile arabaların durduğundan emin olun.</dd>
+          <dt>Taksi</dt><dd>Açılış ≈300–350 L (gece daha yüksek), sonra km başına ≈95–120 L. Taksimetreyi açtırın ya da fiyatı önceden konuşun. Merr Taxi gibi firmalar telefonla ya da uygulamayla çağrılabiliyor; restoran ve otellerden de çağırtabilirsiniz. Tipik fiyatlar: Dajti Ekspres/Bunk'Art 1 ≈650–1.000 L, Bektaşi Merkezi ≈400–600 L, Şehitlik ≈500–700 L, Petrela gidiş-dönüş + bekleme ≈3.000–4.000 L (pazarlık), havalimanı ≈2.000–2.500 L.</dd>
+          <dt>3 kişi için hesap</dt><dd>Otobüs 3 × 40 = 120 L. Kısa bir taksi ≈500 L. Fark küçük, otobüs ise manzaralı ve yerel deneyim. Saat sıkışıksa taksi, vaktiniz varsa otobüs.</dd>
+          <dt>Tren</dt><dd>Şu an yolcu treni yok. Tiran–Durrës–Havalimanı demiryolu yapım aşamasında. Son haberlere göre seferlerin 2027'de başlaması bekleniyor (Tiran–havalimanı ≈20 dk).</dd>
+          <dt>Şehirlerarası</dt><dd>Krujë ve Durrës otobüsleri şehir dışındaki <b>Kuzey-Güney Otogarı</b>'ndan (Terminali Veri-Jug) kalkıyor, ≈200 L. Karma ve Yoğun planlar şehir dışına çıkmadığı için bunlara gerek yok.</dd>
         </dl>
       </section>
 
@@ -638,10 +742,24 @@
           <li><a href="https://en.wikipedia.org/wiki/King_Mosque,_Elbasan" target="_blank" rel="noopener">Wikipedia · Elbasan Hünkâr Camii</a></li>
           <li><a href="https://www.nomads-travel-guide.com/places/skanderbeg-memorial/" target="_blank" rel="noopener">Nomads · İskender Bey Anıt Mezarı</a></li>
           <li><a href="https://www.tourhq.com/tours/48630/full-day-trip-to-lezhe-mrizi-i-zanave-agrotourism" target="_blank" rel="noopener">TourHQ · Lezhë & Mrizi i Zanave</a></li>
-          <li><a href="https://albania.al/activity/culture/marubi-national-museum-of-photography" target="_blank" rel="noopener">albania.al · Marubi Fotoğraf Müzesi</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Marubi_National_Museum_of_Photography" target="_blank" rel="noopener">Wikipedia · Marubi Fotoğraf Müzesi</a></li>
           <li><a href="https://www.freetour.com/durres/cape-of-rodon-escape-history-coastline-castle-day-tour-from-tirana" target="_blank" rel="noopener">FreeTour.com · Rodon Burnu</a></li>
           <li><a href="https://albaniantimes.al/?p=8648" target="_blank" rel="noopener">Albanian Times · TKOB Kasım programı</a></li>
           <li><a href="https://fshf.org/en/abissnet-superiore-will-begin-on-august-22-the-commission-of-leagues-and-competitions-sets-the-calendar-for-the-first-2-matchweeks/" target="_blank" rel="noopener">FSHF · Abissnet Superiore fikstürü</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Bus_lines_in_Tirana" target="_blank" rel="noopener">Wikipedia · Tiran otobüs hatları</a></li>
+          <li><a href="https://dajtiekspres.com/?p=1755" target="_blank" rel="noopener">Dajti Ekspres · nasıl gidilir (L11, Merr Taxi)</a></li>
+          <li><a href="https://moovitapp.com/index/en/public_transit-lines-Tirana-5771-1420738" target="_blank" rel="noopener">Moovit · Tiran hatları</a></li>
+          <li><a href="https://albaniantimes.al/?p=7964" target="_blank" rel="noopener">Albanian Times · Tiran–Durrës–Rinas demiryolu</a></li>
+          <li><a href="https://english.gazetatema.net/economy/operator-sought-for-tirana-airport-rail-link-i345739" target="_blank" rel="noopener">Gazeta Tema · havalimanı treni işletmeci ihalesi</a></li>
+          <li><a href="https://www.expedia.com/things-to-do/tirana-escape-room.a48575963.activity-details" target="_blank" rel="noopener">Expedia · Tirana Escape Room</a></li>
+          <li><a href="https://www.spottedbylocals.com/tirana/category/activity/music" target="_blank" rel="noopener">Spotted by Locals · Tiran'da canlı müzik</a></li>
+          <li><a href="https://euronews.al/en/?p=81605" target="_blank" rel="noopener">Euronews Albania · Opera Kasım programı</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/History_of_Tirana" target="_blank" rel="noopener">Wikipedia · Tiran tarihi</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Palace_of_Culture_of_Tirana" target="_blank" rel="noopener">Wikipedia · Kültür Sarayı</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Cultural_and_Ideological_Revolution" target="_blank" rel="noopener">Wikipedia · Kültür ve İdeoloji Devrimi (1967)</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Salih_Nijazi" target="_blank" rel="noopener">Wikipedia · Salih Niyazi Dede</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Skanderbeg" target="_blank" rel="noopener">Wikipedia · İskender Bey</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/1997_Albanian_civil_unrest" target="_blank" rel="noopener">Wikipedia · 1997 Arnavutluk krizi</a></li>
         </ul>
       </section>`;
 
@@ -666,7 +784,7 @@
   renderPlans();
   renderInfo();
   updateFavCount();
-  const HASH_VIEWS = { "#kesfet": "explore", "#planlar": "plans", "#oylar": "votes", "#bilgiler": "info" };
+  const HASH_VIEWS = { "#kesfet": "explore", "#planlar": "plans", "#oylar": "votes", "#bilgiler": "info", "#okuma": "read" };
   const hashView = HASH_VIEWS[location.hash];
   const imported = importHash();
   window.addEventListener("hashchange", () => {
@@ -676,4 +794,6 @@
   show(imported ? "votes" : (hashView || store.get("tg_view", "explore") || "explore"));
   const openParam = QS.get("yer");
   if (openParam && byId[openParam]) openDetail(openParam);
+  const storyParam = QS.get("yazi");
+  if (storyParam && STORIES.some(s => s.id === storyParam)) { if (!hashView) show("read"); openStory(storyParam); }
 })();
