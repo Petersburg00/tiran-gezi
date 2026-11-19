@@ -5,8 +5,8 @@
 **Canlı site:** https://petersburg00.github.io/tiran-gezi/
 
 ## İçindekiler
-- **Keşfet:** 46 mekân. Kategoriler (Osmanlı, komünizm ve bunker, Bektaşi, müzeler, manzara, günübirlik, yeme-içme), fiyat balonlu harita, konaklamaya mesafe, her yerin tarihi, önemi, ücreti, saatleri ve ipuçları.
-- **Planlar:** 5 alternatif plan (Klasik, Bektaşi & Osmanlı / Krujë, Soğuk Savaş, Tiran + Durrës, Yağmurlu gün). Rota haritada çiziliyor, kişi başı giriş ücreti hesaplanıyor.
+- **Keşfet:** 62 mekân ve aktivite. Kategoriler (Osmanlı, komünizm ve bunker, Bektaşi, müzeler, manzara, günübirlik, aktiviteler, yeme-içme, akşam & gece), fiyat balonlu harita, konaklamaya mesafe, her yerin tarihi, önemi, ücreti, saatleri ve ipuçları.
+- **Planlar:** 7 alternatif plan (Klasik, Bektaşi & Osmanlı / Krujë, Soğuk Savaş, Tiran + Durrës, Aktivite & doğa, Kuzey: Lezhë–Shkodër, Yağmurlu gün). Rota haritada çiziliyor, kişi başı giriş ücreti hesaplanıyor.
 - **Oylar:** Herkes beğendiği yerleri kalple işaretleyip linkini gruba gönderiyor. Link açılınca ortak sıralama oluşuyor. Sunucu yok, veriler tarayıcıda tutuluyor.
 - **Bilgiler:** Uçuşlar, konaklama, havalimanı ulaşımı, taksi, tüm giriş ücretleri tablosu, bütçe, pratik bilgiler, mini sözlük, tarih çizelgesi, kaynaklar.
 

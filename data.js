@@ -24,7 +24,9 @@ window.CATS = [
   { id: "museum",   label: "Müzeler",         icon: "museum" },
   { id: "view",     label: "Manzara & doğa",  icon: "mountain" },
   { id: "daytrip",  label: "Günübirlik",      icon: "road" },
+  { id: "act",      label: "Aktiviteler",     icon: "spark" },
   { id: "food",     label: "Yeme-içme",       icon: "food" },
+  { id: "night",    label: "Akşam & gece",    icon: "glass" },
   { id: "free",     label: "Ücretsiz",        icon: "ticket" },
   { id: "practical",label: "Ulaşım & pratik", icon: "bus" }
 ];
@@ -158,12 +160,12 @@ window.PLACES = [
   {
     id: "opera", name: "Kültür Sarayı & Opera", local: "Pallati i Kulturës · TKOB",
     lat: 41.32883, lng: 19.81921, area: "Merkez", score: 2,
-    cats: ["communism", "free"],
+    cats: ["communism", "free", "act", "night"],
     price: { lek: 0, txt: "Dışarıdan ücretsiz" }, hours: "Gösteri günlerinde akşam", dur: "10 dk",
     short: "Kruşçev'in hediyesi olarak başlayıp Sovyetlerle kavga sonrası Arnavutların bitirdiği bina.",
     history: "1959'da Sovyet lideri Kruşçev'in ziyaretinde temeli atıldı. Bunun için Osmanlı çarşısı yıkıldı. 1961'de Arnavutluk–SSCB ilişkileri kopunca Sovyet mühendisler ayrıldı, bina 1966'da Arnavutlar tarafından tamamlandı. İçinde Ulusal Opera ve Bale Tiyatrosu ile Milli Kütüphane var.",
     why: "Soğuk Savaş'taki 'Arnavutluk SSCB'ye de küstü' hikâyesinin taştan kanıtı.",
-    tips: "Hafta sonu bale ya da opera varsa biletler Avrupa'ya göre çok ucuz, tko.al'a bakın. Havalimanı otobüsü (LU-NA) binanın arkasından kalkıyor.",
+    tips: "Hafta sonu bale ya da opera varsa biletler Avrupa'ya göre çok ucuz: program için tkob.gov.al ya da gişe (+355 4 222 74 71). Kasım programı genelde yoğun (Bağımsızlık ayı). Havalimanı otobüsü (LU-NA) binanın arkasından kalkıyor.",
     wiki: "Palace of Culture of Tirana"
   },
   {
@@ -236,7 +238,7 @@ window.PLACES = [
   {
     id: "blloku", name: "Blloku", local: "Ish-Blloku",
     lat: 41.32133, lng: 19.81607, area: "Blloku", score: 5,
-    cats: ["top", "communism", "food", "free"],
+    cats: ["top", "communism", "food", "free", "night"],
     price: { lek: 0, txt: "Ücretsiz" }, hours: "Kafeler sabahtan gece 02:00'ye kadar", dur: "Akşam boyu",
     short: "Komünist seçkinlerin halka kapalı mahallesiydi, bugün Tiran'ın gece hayatının merkezi.",
     history: "1950'lerden 1991'e kadar sadece Politbüro üyeleri ve aileleri burada yaşayabiliyordu. Sıradan vatandaşların girmesi yasaktı ve sokaklar nöbetçilerle korunuyordu. Rejim çöktükten sonra 1991'de halka açıldı. Bugün Tiran'ın en canlı kafe, bar ve restoran bölgesi.",
@@ -258,7 +260,7 @@ window.PLACES = [
   {
     id: "skytower", name: "Sky Tower (dönen bar)", local: "Sky Tower",
     lat: 41.32235, lng: 19.81812, area: "Blloku", score: 3,
-    cats: ["view", "food"],
+    cats: ["view", "food", "night"],
     price: { lek: null, txt: "İçecek ≈400–800 L" }, hours: "≈08:00–24:00", dur: "45 dk",
     short: "Tepedeki dönen bar ve restorandan 360° Tiran manzarası.",
     history: "2000'lerin başında yapılan, Tiran'ın ilk çok katlı modern binalarından biri. En üst katındaki döner bar, şehri bir kahve süresinde tamamen dolaşmanızı sağlıyor.",
@@ -348,7 +350,7 @@ window.PLACES = [
   {
     id: "dajtiEks", name: "Dajti Ekspres Teleferiği", local: "Dajti Ekspres",
     lat: 41.35083, lng: 19.86116, area: "Dajti eteği", score: 4,
-    cats: ["view"],
+    cats: ["view", "act"],
     price: { lek: 1500, txt: "1.500 L gidiş-dönüş" }, hours: "Hafta içi 09:00–18:00, hafta sonu 09:00–18:30, SALI kapalı", dur: "15 dk tek yön",
     status: "Kuvvetli rüzgârda seferler duruyor. Gitmeden dajtiekspres.com'a bakın.",
     short: "4,7 km'lik, Balkanlar'ın en uzun teleferiklerinden biri. Ovadan 1.050 m'ye 15 dakika.",
@@ -522,7 +524,7 @@ window.PLACES = [
   {
     id: "komiteti", name: "Komiteti Kafe-Müze", local: "Komiteti – Kafe & Muzeum",
     lat: 41.3233, lng: 19.82259, area: "Kale yakını", score: 3,
-    cats: ["food", "communism"],
+    cats: ["food", "communism", "night"],
     price: { lek: null, txt: "İçecek ≈200–500 L" }, hours: "Öğleden gece yarısına", dur: "45 dk",
     short: "Komünist dönem eşyalarıyla döşeli kafe. 20'den fazla çeşit raki.",
     history: "Adı 'parti komitesi'nden geliyor. Duvarlar ve masalar eski radyolar, daktilolar ve rejim döneminden kalma eşyalarla dolu.",
@@ -533,7 +535,7 @@ window.PLACES = [
   {
     id: "radio", name: "Radio Bar", local: "Radio Bar",
     lat: 41.32014, lng: 19.81501, area: "Blloku", score: 3,
-    cats: ["food"],
+    cats: ["food", "night"],
     price: { lek: null, txt: "İçecek ≈400–700 L" }, hours: "Akşam-gece", dur: "1 sa",
     short: "Eski radyo koleksiyonuyla döşenmiş, bahçeli retro bar.",
     history: "Blloku'nun en köklü barlarından. Komünist dönemden kalma radyolar duvarlarda sergileniyor.",
@@ -550,6 +552,188 @@ window.PLACES = [
     history: "Tiran'ın en tanınmış yerel zincirlerinden. Fırın yemekleri ve pizzaları meşhur.",
     why: "Fiyat/performans. 3 kişi için güvenli seçim.",
     tips: "Hafta sonu akşam kalabalık.",
+    wiki: null
+  },
+
+  // ───────────── AKTİVİTELER (Tiran içi) ─────────────
+  {
+    id: "freetour", name: "Ücretsiz yürüyüş turu", local: "Tirana Free Walking Tour",
+    lat: 41.32840, lng: 19.81950, area: "Opera basamakları · eve 5 dk", score: 4,
+    cats: ["act", "free"],
+    price: { lek: 0, txt: "Bahşiş usulü", note: "Kişi başı ≈500–1.000 L bahşiş adet" }, hours: "Sabah ve öğleden sonra seansları (saat operatöre göre)", dur: "≈2 sa",
+    short: "Yerel rehberle 2 saatte Osmanlı, İtalyan ve komünist Tiran. İlk sabah için ideal.",
+    history: "Tiran'da birkaç ekip (GuruWalk, FreeTour.com) bahşiş usulü yürüyüş turu düzenliyor. Buluşma çoğunlukla meydanda: Opera basamakları, İskender Bey heykeli ya da Arnavutluk Bankası köşesi. Bazı turlar komünist dönemi ('Eyes of Tirana'), bazıları sokak sanatını öne çıkarıyor.",
+    why: "Rehberler rejim dönemini kendi aileleri üzerinden anlatıyor. Cumartesi sabahı bu turla başlarsanız sonraki müzeler çok daha anlamlı olur.",
+    tips: "Bir gün önce GuruWalk ya da FreeTour.com'dan yer ayırtın, saat ve buluşma noktasını oradan teyit edin. Tur sonunda kişi başı 5–10 € bahşiş adet.",
+    wiki: null
+  },
+  {
+    id: "rakitour", name: "Raki & meze tadımı", local: "Raki Tasting · Rruga e Dibrës",
+    lat: 41.33260, lng: 19.82640, area: "Rruga e Dibrës · eve 5 dk", score: 3,
+    cats: ["act", "night", "food"],
+    price: { lek: null, txt: "≈35–50 €/kişi", note: "teyit · tur fiyatı" }, hours: "Akşamüstü/akşam, rezervasyonla", dur: "≈2 sa",
+    short: "Uzman eşliğinde 7 çeşit Arnavut rakisi ve meze. Üzüm, erik, dut, ardıç…",
+    history: "Raki Arnavutluk'un ulusal içkisi. Türk rakısından farklı olarak anasonsuz yapılıyor ve sek içiliyor. Rehberli tadımlarda ülkenin farklı bölgelerinden 7 raki, mezeyle birlikte anlatılıyor; bir organizatör 58 yerel çeşit arasından seçim yaptığını söylüyor. Buluşma genelde Rruga e Dibrës'teki InAlb noktasında.",
+    why: "Arnavut misafirperverliğinin ve ev üretimi geleneğinin en kolay tadılan hâli. Akşam yemeği öncesi iyi bir başlangıç.",
+    tips: "Expedia, Booking ya da Headout üzerinden rezervasyon. Daha ucuz alternatif: Komiteti'de raki tadım tabağı.",
+    wiki: null
+  },
+  {
+    id: "cooking", name: "Arnavut mutfağı kursu", local: "Cooking Class Tirana",
+    lat: 41.33020, lng: 19.82820, area: "Merkez · adres rezervasyonda", score: 3,
+    cats: ["act", "food"],
+    price: { lek: null, txt: "≈35–70 $/kişi (≈3.000–6.000 L)", note: "teyit · operatöre göre" }, hours: "Genelde öğle, ≈4 sa", dur: "3–4 sa",
+    short: "Bir ev mutfağında byrek açmayı, tavë kosi ve şerbetli tatlıları öğrenip yiyorsunuz.",
+    history: "Kurslar çoğunlukla aile evlerinde ya da küçük atölyelerde, ev yapımı şarap ve raki eşliğinde yapılıyor. Menüde elle açılan yufkayla byrek, tavë kosi (yoğurtlu kuzu), fërgesë ve şerbetli tatlılar var. Osmanlı mutfağıyla ortak yemekler Türk misafirlere çok tanıdık gelir.",
+    why: "3 kişilik grup için en 'yerel' deneyim ve öğle yemeğini de çözüyor. Yağmurlu gün için de iyi seçenek.",
+    tips: "Expedia/GetYourGuide/TourRadar'da 'Tirana cooking class' arayın. Bazıları en az 2 kişi istiyor, 1–2 gün önce ayırtın.",
+    wiki: null
+  },
+  {
+    id: "nouvelle", name: "Nouvelle Vague (kokteyl bar)", local: "Nouvelle Vague · Rruga Pjetër Bogdani",
+    lat: 41.32130, lng: 19.81720, area: "Blloku", score: 4,
+    cats: ["night"],
+    price: { lek: null, txt: "Kokteyl ≈800–1.200 L", note: "teyit" }, hours: "Akşam-gece", dur: "1–2 sa",
+    short: "Dünyanın En İyi 50 Barı listesine giren ilk Arnavut bar: 2025'te 28., 2026'da 43.",
+    history: "Blloku'da küçük, teraslı bir kokteyl barı. 2023'te genişletilmiş listede 86., 2024'te 95. oldu. 2025'te ana listeye 28. sıradan girdi; 2026 listesinde 43. sırada.",
+    why: "Tiran gece hayatının ne kadar değiştiğinin kanıtı. Cumartesi gecesi için en iddialı durak.",
+    tips: "21:00 civarı gidin, 23:00'ten sonra yer bulmak zor. Canlı caz için: Hemingway Bar (Cuma geceleri canlı müzik), Radio Bar (çoğu Pazar caz üçlüsü). Birçok küçük bar sadece nakit alıyor.",
+    wiki: null
+  },
+  {
+    id: "reja", name: "Reja · Bulut (Sou Fujimoto)", local: "Reja – The Cloud",
+    lat: 41.32590, lng: 19.81985, area: "Merkez · Galeri önü", score: 2,
+    cats: ["museum", "free"],
+    price: { lek: 0, txt: "Ücretsiz" }, hours: "7/24 (gece ışıklı)", dur: "10 dk",
+    short: "Japon mimar Sou Fujimoto'nun beyaz metal çubuklardan bulut biçimli pavyonu.",
+    history: "Londra Serpentine Pavyonu'yla (2013) tanınan Sou Fujimoto'nun Tiran için tasarladığı yerleştirme, 2016'da Ulusal Sanat Galerisi'nin önündeki çimenliğe kuruldu. İçinde dolaşılabiliyor, bazen küçük etkinliklere sahne oluyor.",
+    why: "Galeri kapalı olsa bile önünden geçerken mutlaka içine girin. Akşam ışıklandırmasıyla en güzel hâlinde.",
+    tips: "Bulvar yürüyüşünde Bunk'Art 2 ile Piramit arasında, yolun üstünde.",
+    wiki: null
+  },
+  {
+    id: "arena", name: "Futbol maçı · Air Albania Stadyumu", local: "Arena Kombëtare",
+    lat: 41.31855, lng: 19.82380, area: "Ana Tereza Meydanı yanı", score: 2,
+    cats: ["act"],
+    price: { lek: null, txt: "Maç bileti ≈300–1.000 L", note: "teyit · maç varsa" }, hours: "Maç günü", dur: "2–2,5 sa",
+    short: "Hafta sonu Tiranlı bir takımın maçı varsa Arnavut tribün kültürünü görmenin yolu.",
+    history: "1946'dan kalma Qemal Stafa Stadı yıkılarak yerine 2019'da açıldı. Milli takımın stadı; bir köşesindeki 112 m'lik kulede otel var. Tiran'ın kulüpleri KF Tirana, Partizani ve Dinamo City; Tirana–Partizani derbisi ülkenin en ateşli maçı.",
+    why: "Futbol seven bir grup için Cumartesi ya da Pazar akşamına farklı bir alternatif.",
+    tips: "21–22 Kasım fikstürünü doğrulayamadık: fshf.org'dan Abissnet Superiore programına bakın. Partizani ve Dinamo City bazen başka stadlarda oynuyor.",
+    wiki: "Air Albania Stadium"
+  },
+
+  // ───────────── DOĞA & YAKIN ÇEVRE ─────────────
+  {
+    id: "pellumbas", name: "Pëllumbas Mağarası & Erzen Kanyonu", local: "Shpella e Pëllumbasit",
+    lat: 41.26360, lng: 19.91670, area: "25 km GD · ≈40 dk", score: 4,
+    cats: ["view", "daytrip", "act"],
+    price: { lek: null, txt: "Giriş küçük ücret · tur ≈65–100 $", note: "teyit" }, hours: "Gündüz (mağaraya en geç 14:00'te girin)", dur: "Yarım gün (4–5 sa)",
+    short: "Köyden 1 saatlik patikayla mağara ayısı fosillerinin bulunduğu dev mağaraya; dönüşte kanyon.",
+    history: "Erzen nehrinin açtığı kanyonun yamacında, ≈360 m uzunluğunda bir karst mağarası (Shpella e Zezë, 'Kara Mağara'). İçinde mağara ayısı (Ursus spelaeus) kemikleri ve Paleolitik dönemden insan izleri bulundu. Dajti Milli Parkı'nın güney ucunda.",
+    why: "Tiran'a 40 dakikada gerçek bir doğa yürüyüşü. Pazar gününü dağda geçirmek isteyenler için Dajti'ye alternatif.",
+    tips: "Fener (kafa lambası ya da telefon) ve kaymayan ayakkabı şart. Kasım'da patika çamurlu olabilir; Ekim–Mayıs arası kanyonda yüzme yok. Taksiyle köye gidip yerel rehber tutabilir ya da Tiran'dan tur alabilirsiniz. Hava 16:30'da kararıyor.",
+    wiki: null
+  },
+  {
+    id: "bovilla", name: "Bovilla Gölü & Gamti seyir noktası", local: "Liqeni i Bovillës · Mali i Gamtit",
+    lat: 41.45450, lng: 19.93000, area: "43 km KD · ≈1 sa", score: 3,
+    cats: ["view", "daytrip", "act"],
+    price: { lek: 0, txt: "Göl ücretsiz · tur ≈60–100 $" }, hours: "Gündüz", dur: "Yarım gün (5–6 sa)",
+    short: "Tiran'ın içme suyunu sağlayan turkuaz baraj gölü ve Gamti'den kartpostal manzarası.",
+    history: "1998'de tamamlanan Bovilla barajının oluşturduğu göl, Tiran'ın içme suyunun büyük kısmını sağlıyor. Dajti Milli Parkı'nın kuzeyinde, kalker dağların arasında. Barajdan Gamti dağındaki ≈620–650 m'lik seyir noktasına kolay-orta zorlukta bir patika çıkıyor.",
+    why: "Tiran çevresinin en fotojenik noktası. Manzara arayanlar için Pazar sabahına iyi bir seçenek.",
+    tips: "Yolun son kısmı toprak; sıradan taksiler gitmek istemeyebilir, tur ya da ATV turu daha pratik. Barajdan seyir noktasına ≈2 km, 40–60 dk tırmanış. Gölde yüzmek yasak (içme suyu).",
+    wiki: "Lake Bovilla"
+  },
+  {
+    id: "atv", name: "ATV/Quad turu (Bovilla)", local: "Quad Tour Bovilla",
+    lat: 41.43200, lng: 19.89500, area: "Bovilla yolu · Tiran'dan alıyorlar", score: 3,
+    cats: ["act", "daytrip"],
+    price: { lek: null, txt: "≈68–103 $/kişi", note: "2 kişi bir ATV'de daha ucuz · teyit" }, hours: "Sabah ya da öğleden sonra", dur: "≈3 sa",
+    short: "Köy yolları ve çamurlu patikalarda rehberli ATV sürüşüyle Bovilla gölüne.",
+    history: "Tiran'ın kuzeydoğusundaki köy yollarında ve Bovilla gölü çevresinde düzenlenen rehberli turlar. Kask, kısa eğitim, su ve sonrasında kahve çoğunlukla dahil.",
+    why: "Grubun adrenalin aktivitesi. Bovilla manzarasını da görüyorsunuz.",
+    tips: "Ehliyetinizi götürün. Kasım'da çamur garanti: yedek kıyafet ve eski ayakkabı. Expedia/Trip.com'da 'Bovilla quad'.",
+    wiki: null
+  },
+  {
+    id: "preza", name: "Preza Kalesi", local: "Kalaja e Prezës",
+    lat: 41.42950, lng: 19.67450, area: "Havalimanına ≈10 dk", score: 3,
+    cats: ["view", "daytrip", "free"],
+    price: { lek: 0, txt: "Ücretsiz" }, hours: "Gündüz, içindeki kafe akşama kadar (teyit)", dur: "45 dk – 1,5 sa",
+    short: "Havalimanı pistinin tam üstünde tepe kalesi. Dönüş gecesi için son durak.",
+    history: "Kökeni tartışmalı: bazı kaynaklar Justinianus dönemine bağlıyor, daha güvenilir görüş 15. yüzyılda Thopia ailesinin yaptırdığı yönünde. İlk yazılı kaydı İskender Bey'in biyografisini yazan Barleti'de. Osmanlı döneminde içine saat kulesi ve cami eklendi. 2019 depreminde kısmen yıkılan kule 2021'de yeniden yapıldı.",
+    why: "Pazar akşamı bagajlarla havalimanına giderken uğranabilir: gün batımı, Kruja dağları ve pistten kalkan uçaklar.",
+    tips: "Gün batımı ≈16:15. İçinde kafe-restoran var, açık mı önceden sorun. Uka Farm ile aynı yönde.",
+    wiki: "Prezë Castle"
+  },
+  {
+    id: "uka", name: "Uka Farm (bağ & çiftlik restoranı)", local: "Uka Farm · Laknas",
+    lat: 41.37350, lng: 19.73600, area: "Laknas · 25–45 dk, havalimanı yolu", score: 3,
+    cats: ["food", "daytrip", "act"],
+    price: { lek: null, txt: "Tadım ≈15–25 € · yemek ≈2.000–3.500 L", note: "teyit" }, hours: "Öğle-akşam, rezervasyonla", dur: "2–3 sa",
+    short: "Aile işletmesi bağ: şarap tadımı ve kendi ürünleriyle çiftlik mutfağı.",
+    history: "Flori Uka'nın Tiran'ın kuzeybatısındaki aile çiftliği. Kendi bağlarından yerel üzümlerle şarap ve raki üretiyor; mutfak çiftliğin sebze ve etine dayanıyor.",
+    why: "Havalimanı yolunda: Pazar akşamı veda yemeği için Preza ile birlikte ideal.",
+    tips: "Facebook/Instagram'dan mutlaka rezervasyon yapın. Bagajlarla gelecekseniz taksiyi buna göre ayarlayın.",
+    wiki: null
+  },
+
+  // ───────────── YENİ GÜNÜBİRLİKLER ─────────────
+  {
+    id: "elbasan", name: "Elbasan Kalesi & Hünkâr Camii", local: "Kalaja e Elbasanit · Xhamia e Mbretit",
+    lat: 41.11080, lng: 20.08280, area: "45 km GD · ≈1 sa", score: 3,
+    cats: ["ottoman", "daytrip", "free"],
+    price: { lek: 0, txt: "Kale içi ücretsiz" }, hours: "7/24 (yaşayan kale)", dur: "Yarım gün",
+    short: "Fatih Sultan Mehmed'in 1466'da bir ayda yeniden yaptırdığı, içinde hâlâ insanların yaşadığı kale.",
+    history: "Roma döneminde Via Egnatia üzerindeki Scampa kalesiydi. 1466 yazında Fatih, İskender Bey'e karşı Krujë seferi sırasında kaleyi Bizans temelleri üzerine yaklaşık bir ayda yeniden yaptırdı. Kitabede mimar Yusufi'nin adı geçiyor. Şehrin adı Türkçe 'il basan'dan geliyor. Surların içindeki Hünkâr (Kral) Camii II. Bayezid döneminde (1492–1502) yapıldı ve Fatih'in anısına adlandırıldı. 1967'de kapatıldı, 1990'dan sonra yeniden açıldı.",
+    why: "Fatih'in Arnavutluk'taki en somut izi. Krujë kuşatmasının öbür tarafını görmek için.",
+    tips: "Tiran'dan otobüs ≈1 sa. Petrela Kalesi aynı yol üzerinde, ikisi bir güne sığar.",
+    wiki: "Elbasan Castle"
+  },
+  {
+    id: "lezhe", name: "İskender Bey'in Mezarı (Lezhë)", local: "Memoriali i Skënderbeut",
+    lat: 41.78260, lng: 19.64360, area: "60 km K · ≈1 sa", score: 4,
+    cats: ["ottoman", "daytrip", "museum"],
+    price: { lek: 100, txt: "≈100 L", note: "teyit" }, hours: "Ekim–Mart ≈08:00–17:00 (her zaman açık olmayabilir)", dur: "30–45 dk",
+    short: "İskender Bey'in gömüldüğü Aziz Nikola Kilisesi kalıntısı ve üstündeki tepe kalesi.",
+    history: "İskender Bey (Gjergj Kastrioti) 1444'te Arnavut beylerini burada, Lezhë Birliği'nde topladı. 1468'de sıtmadan öldüğünde Aziz Nikola Kilisesi'ne gömüldü. 1478'de Osmanlılar şehri alınca kilise camiye çevrildi. Anlatılana göre Osmanlı askerleri cesaret getirsin diye kemiklerinden muska yaptı. Komünist dönemde kalıntıların üzerine anıt mezar düzenlendi; içinde İskender Bey'in kılıcı ve miğferinin kopyaları var.",
+    why: "Krujë'de başlayan İskender Bey hikâyesinin sonu. Türk tarih kitaplarında okunan olayların öbür yüzü.",
+    tips: "Shkodër yolu üzerinde. Mrizi i Zanave (öğle yemeği) 20 dk kuzeyde.",
+    wiki: null
+  },
+  {
+    id: "mrizi", name: "Mrizi i Zanave (çiftlik restoranı)", local: "Mrizi i Zanave Agroturizëm · Fishtë",
+    lat: 41.89900, lng: 19.59900, area: "Fishtë · ≈1 sa 15 dk", score: 4,
+    cats: ["food", "daytrip"],
+    price: { lek: null, txt: "≈2.000–3.000 L/kişi", note: "teyit" }, hours: "Öğle-akşam, rezervasyonla", dur: "2 sa",
+    short: "Arnavutluk'un en ünlü çiftlik restoranı, Slow Food hareketinin simgesi.",
+    history: "Şef Altin Prenga'nın Zadrima ovasındaki Fishtë köyünde kurduğu agroturizm çiftliği. Adını köyün ünlü şairi Gjergj Fishta'nın 'Perilerin Gölgeliği' (Mrizi i Zanave) eserinden alıyor. Peynir, salam, şarap ve sebzelerin çoğunu kendisi üretiyor, çevre köylerden alıyor.",
+    why: "Lezhë/Shkodër gününü taçlandıran uzun bir öğle yemeği. Sabit menü yok, mevsimde ne varsa o geliyor.",
+    tips: "Hafta sonu çok kalabalık, rezervasyon şart. Gelen tabaklar bitmek bilmiyor, kahvaltıyı hafif tutun.",
+    wiki: null
+  },
+  {
+    id: "shkoder", name: "Shkodër & Rozafa Kalesi", local: "Shkodra · Kalaja e Rozafës",
+    lat: 42.04690, lng: 19.49300, area: "100 km K · ≈1 sa 45 dk – 2 sa", score: 3,
+    cats: ["daytrip", "ottoman", "view"],
+    price: { lek: 400, txt: "Rozafa ≈400 L · Marubi 700 L", note: "teyit" }, hours: "Rozafa gündüz · Marubi kış Sa–Pz 09–14 / 15–18 (teyit)", dur: "Tam gün",
+    short: "Kuzeyin kültür başkenti: efsanevi Rozafa Kalesi, Kurşunlu Cami ve Marubi fotoğraf müzesi.",
+    history: "İlirya kralı Genti'nin başkenti (MÖ 2. yy). Rozafa Kalesi, efsaneye göre surlar ayakta kalsın diye duvara örülen gelin Rozafa'nın adını taşıyor. 1479'da uzun bir kuşatmanın ardından Osmanlı'ya geçti. 18.–19. yüzyılda Buşatlı paşalarının merkeziydi; Kurşunlu Cami 1773'te Mehmed Paşa Buşatlı tarafından yaptırıldı. Marubi Ulusal Fotoğraf Müzesi 1850'lerden kalma Marubi ailesi arşivini sergiliyor.",
+    why: "Göl, kale, Osmanlı ve Katolik izlerinin karıştığı şehir. Lezhë ve Mrizi i Zanave ile tam bir 'kuzey günü' oluyor.",
+    tips: "Kasım'da gün kısa: 08:00'de çıkın. Şoförlü araç ya da tur önerilir (otobüs ≈2 sa).",
+    wiki: "Rozafa Castle"
+  },
+  {
+    id: "rodon", name: "Rodon Burnu & İskender Bey Kalesi", local: "Kepi i Rodonit",
+    lat: 41.58430, lng: 19.45450, area: "60 km KB · ≈1 sa 15 dk", score: 3,
+    cats: ["daytrip", "view", "free"],
+    price: { lek: 0, txt: "Ücretsiz" }, hours: "Gündüz", dur: "Yarım gün",
+    short: "Adriyatik'e uzanan burnun ucunda yarısı denize gömülmüş kale ve küçük Aziz Antuan Kilisesi.",
+    history: "İskender Bey, Venedik'le deniz bağlantısı için kaleyi 1450'lerde yaptırdı. Osmanlılar 1467'de yıktı, Venedikliler yeniden kurdu. Zamanla deniz kalenin bir kısmını yuttu. Burnun ortasındaki Aziz Antuan Kilisesi'nin tarihi kaynaklara göre 13. ile 17. yüzyıl arasında değişiyor.",
+    why: "İskender Bey'in Krujë–Lezhë–Rodon üçgeninin deniz ayağı. Kalabalıksız, vahşi bir kıyı.",
+    tips: "Son ≈2 km yürüyüş. Durrës ile aynı güne sığar. Rüzgârlı olur, mont alın.",
     wiki: null
   },
 
@@ -716,6 +900,68 @@ window.PLANS = [
         ["12:30", "venetian", "Venedik Kulesi'nde kahve, sahilde balık"],
         ["15:00", "pazar", "Tiran'a dönüş"],
         ["19:30", "oda", "Oda'da veda yemeği"]
+      ]}
+    ]
+  },
+  {
+    id: "aktivite",
+    name: "Aktivite & doğa",
+    tag: "Hareketli",
+    color: "#2F7D4F",
+    desc: "Cumartesi rehberli yürüyüş turu, raki tadımı ve Blloku gecesi. Pazar mağara yürüyüşü, Bektaşi Merkezi ve havalimanı yolunda çiftlikte veda yemeği.",
+    days: [
+      { d: "Cumartesi 21 Kasım", t: "Rehberle şehir, akşam raki ve kokteyl", steps: [
+        ["09:00", "pazar", "Yeni Pazar'da byrek kahvaltısı"],
+        ["10:00", "freetour", "Ücretsiz yürüyüş turu (≈2 sa, önceden ayırtın)"],
+        ["12:15", "kalaja", "Kale'de öğle yemeği"],
+        ["13:30", "leaves", "Yapraklar Evi (16:00'da kapanıyor)"],
+        ["15:00", "bunk2", "Bunk'Art 2"],
+        ["16:15", "reja", "Reja (Bulut) ve bulvar"],
+        ["16:30", "pyramid", "Piramit'te alacakaranlık"],
+        ["18:00", "rakitour", "Raki & meze tadımı"],
+        ["20:30", "era", "Blloku'da akşam yemeği"],
+        ["22:00", "nouvelle", "Nouvelle Vague'da kokteyl"]
+      ]},
+      { d: "Pazar 22 Kasım", t: "Mağara yürüyüşü ve havalimanı yolunda veda", steps: [
+        ["08:30", "pellumbas", "Taksi/tur ile Pëllumbas köyü (≈40 dk)"],
+        ["09:15", "pellumbas", "Mağaraya 1 sa yürüyüş, mağara, kanyon"],
+        ["13:00", "pellumbas", "Köyde öğle yemeği"],
+        ["14:30", "bektashi", "Dönüşte Bektaşi Dünya Merkezi"],
+        ["16:00", "home", "Bagajları alın (geç çıkış/emanet ayarlıysa)"],
+        ["16:45", "preza", "Preza Kalesi: karanlıkta pist ışıkları"],
+        ["18:30", "uka", "Uka Farm'da şarap tadımı ve veda yemeği"],
+        ["22:30", "airport", "Bu planda eve dönmeden doğrudan havalimanı (15–20 dk)"]
+      ]}
+    ]
+  },
+  {
+    id: "kuzey",
+    name: "Kuzey: İskender Bey'in izinde",
+    tag: "Uzun gün",
+    color: "#7B4FB8",
+    desc: "Cumartesi Tiran'ın özü. Pazar şoförlü araçla kuzeye: Lezhë'de İskender Bey'in mezarı, Mrizi i Zanave'de efsane öğle yemeği, Shkodër'de Rozafa Kalesi.",
+    days: [
+      { d: "Cumartesi 21 Kasım", t: "Tiran'ın özü", steps: [
+        ["09:00", "pazar", "Yeni Pazar'da kahvaltı"],
+        ["09:45", "square", "Skanderbeg Meydanı"],
+        ["10:00", "ethem", "Ethem Bey Camii"],
+        ["10:30", "bunk2", "Bunk'Art 2"],
+        ["12:00", "kalaja", "Kale'de öğle"],
+        ["13:30", "leaves", "Yapraklar Evi"],
+        ["15:00", "bektashi", "Bektaşi Merkezi"],
+        ["16:15", "pyramid", "Piramit"],
+        ["17:00", "postbllok", "Postbllok"],
+        ["19:00", "blloku", "Blloku"]
+      ]},
+      { d: "Pazar 22 Kasım", t: "Lezhë · Fishtë · Shkodër (şoförlü araç)", steps: [
+        ["08:00", "lezhe", "Tiran'dan çıkış, ≈1 sa"],
+        ["09:00", "lezhe", "İskender Bey'in mezarı ve Lezhë Kalesi"],
+        ["10:15", "shkoder", "Shkodër'e (≈45 dk)"],
+        ["11:00", "shkoder", "Rozafa Kalesi, göl manzarası"],
+        ["12:15", "shkoder", "Kurşunlu Cami ve eski çarşı"],
+        ["13:30", "mrizi", "Mrizi i Zanave'de uzun öğle yemeği"],
+        ["16:00", "pazar", "Tiran'a dönüş (≈1 sa 15 dk)"],
+        ["19:30", "oda", "Oda'da hafif veda yemeği"]
       ]}
     ]
   },

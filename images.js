@@ -49,5 +49,21 @@ window.IMAGES = {
  "airport": null,
  "luna": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Palacio_de_Cultura%2C_Tirana%2C_Albania%2C_2014-04-17%2C_DD_11.JPG/960px-Palacio_de_Cultura%2C_Tirana%2C_Albania%2C_2014-04-17%2C_DD_11.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
  "terminal": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Public_Bus_Transportion_Tirana_2016.jpg/960px-Public_Bus_Transportion_Tirana_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
- "home": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/New_Bazaar_%28Pazari_i_Ri%29%2C_Tirana%2C_Albania.jpg/960px-New_Bazaar_%28Pazari_i_Ri%29%2C_Tirana%2C_Albania.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+ "home": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/New_Bazaar_%28Pazari_i_Ri%29%2C_Tirana%2C_Albania.jpg/960px-New_Bazaar_%28Pazari_i_Ri%29%2C_Tirana%2C_Albania.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+ "freetour": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Tirana_-_Skanderbeg_Square_%28Sheshi_Sk%C3%ABnderbej%29_-_by_Pudelek.jpg/960px-Tirana_-_Skanderbeg_Square_%28Sheshi_Sk%C3%ABnderbej%29_-_by_Pudelek.jpg",
+ "rakitour": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Gota_rakie_metali_100_vje%C3%A7are%2C_shqiptare.jpg/960px-Gota_rakie_metali_100_vje%C3%A7are%2C_shqiptare.jpg",
+ "cooking": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Albanian_triangle_byrek.jpg/960px-Albanian_triangle_byrek.jpg",
+ "nouvelle": null,
+ "reja": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Reja%2C_Tirane_Albania.jpg/960px-Reja%2C_Tirane_Albania.jpg",
+ "arena": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Air_Albania_Stadium_close.jpg/960px-Air_Albania_Stadium_close.jpg",
+ "pellumbas": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Shpella_e_zeze_-_Pellumbas.jpg/960px-Shpella_e_zeze_-_Pellumbas.jpg",
+ "bovilla": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Panoramic_view_of_Lake_Bovilla%2C_Tirana%2C_Albania.jpg/960px-Panoramic_view_of_Lake_Bovilla%2C_Tirana%2C_Albania.jpg",
+ "atv": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Bovilla_Reservoir.jpg/960px-Bovilla_Reservoir.jpg",
+ "preza": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Clock_tower_of_Preza_%28cropped%29.jpg",
+ "uka": null,
+ "elbasan": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Elbasan_Castle%2C_Elbasan%2C_Albania_-_29_October_2022.jpg/960px-Elbasan_Castle%2C_Elbasan%2C_Albania_-_29_October_2022.jpg",
+ "lezhe": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Lezh%C3%AB%2C_Albania_%E2%80%93_Skanderbeg_Memorial_2016_04.jpg/960px-Lezh%C3%AB%2C_Albania_%E2%80%93_Skanderbeg_Memorial_2016_04.jpg",
+ "mrizi": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Mrizi_i_Zanave_restaurant.jpg/960px-Mrizi_i_Zanave_restaurant.jpg",
+ "shkoder": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Castillo_de_Rozafa%2C_Shkodra%2C_Albania%2C_2014-04-18%2C_DD_12.JPG/960px-Castillo_de_Rozafa%2C_Shkodra%2C_Albania%2C_2014-04-18%2C_DD_12.JPG",
+ "rodon": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Kepi_i_Rodonit_%E2%80%93_Festung.jpg/960px-Kepi_i_Rodonit_%E2%80%93_Festung.jpg"
 };

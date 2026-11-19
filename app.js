@@ -50,6 +50,8 @@
     food: '<path d="M7 3v8a2 2 0 0 0 4 0V3M9 11v10M17 3c-2 0-3 3-3 6s1 4 3 4v8"/>',
     ticket: '<path d="M3 8a2 2 0 0 0 0 4v0 4h18v-4a2 2 0 0 1 0-4V4H3zM14 4v16" transform="translate(0 2) scale(1 .85)"/>',
     bus: '<path d="M5 17V6a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v11zM5 11h14M7 20v-3M17 20v-3"/><circle cx="8.5" cy="14" r=".6"/><circle cx="15.5" cy="14" r=".6"/>',
+    spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+    glass: '<path d="M6 3h12l-6 8zM12 11v9M8 21h8M8.2 6h7.6"/>',
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     pin: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
     hourglass: '<path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9s8 4 8 9"/>',
@@ -62,7 +64,7 @@
   const heartSvg = () => `<svg viewBox="0 0 32 32">${I.heart}</svg>`;
   const starSolid = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 3 6.3 6.9 1-5 4.8 1.2 6.9L12 17.8 5.9 21l1.2-6.9-5-4.8 6.9-1z"/></svg>';
 
-  const CAT_COLOR = { communism: "#4B4B55", ottoman: "#B3541E", faith: "#008489", museum: "#7B4FB8", view: "#2F7D4F", daytrip: "#C2410C", food: "#D9364F", practical: "#1C4FB8", top: "#FF385C", free: "#00A699" };
+  const CAT_COLOR = { communism: "#4B4B55", ottoman: "#B3541E", faith: "#008489", museum: "#7B4FB8", view: "#2F7D4F", daytrip: "#C2410C", food: "#D9364F", practical: "#1C4FB8", act: "#0E7C86", night: "#3B3B98", top: "#FF385C", free: "#00A699" };
   const mainCat = p => (p.cats.find(c => c !== "top" && c !== "free") || p.cats[0] || "practical");
   const catIcon = c => (CATS.find(x => x.id === c) || {}).icon || "pin";
   function photo(p, cls = "") {
@@ -83,7 +85,8 @@
   let myName = store.get("tg_name", "");
   let favs = new Set(store.get("tg_favs", []).filter(id => byId[id]));
   let group = store.get("tg_group", {});
-  let curCat = "all", curSort = "score", hotId = null;
+  const QS = new URLSearchParams(location.search);
+  let curCat = CATS.some(c => c.id === QS.get("kat")) ? QS.get("kat") : "all", curSort = "score", hotId = null;
   const VOTER_COLORS = ["#FF385C", "#00A699", "#FC642D", "#7B4FB8", "#1C4FB8", "#2F7D4F", "#B3541E"];
 
   function voters() {
@@ -325,7 +328,7 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeDetail(); });
 
   // ── planlar ──
-  let planMap, planLayer, curPlan = store.get("tg_plan", "klasik");
+  let planMap, planLayer, curPlan = QS.get("plan") || store.get("tg_plan", "klasik");
   if (!PLANS.find(p => p.id === curPlan)) curPlan = "klasik";
   const DAY_COLORS = ["#FF385C", "#00A699"];
   function initPlanMap() {
@@ -619,6 +622,26 @@
           <li><a href="https://www.inyourpocket.com/526ca" target="_blank" rel="noopener">In Your Pocket · taksi ücretleri</a></li>
           <li><a href="https://radicalstorage.com/luggage-storage/tirana/city-center/luggage-storage-near-skanderbeg-square" target="_blank" rel="noopener">Radical Storage · meydan yakını emanet</a></li>
           <li><a href="https://www.stasher.com/luggage-storage/albania/tirana" target="_blank" rel="noopener">Stasher · Tiran emanet</a></li>
+          <li><a href="https://www.guruwalk.com/tirana/" target="_blank" rel="noopener">GuruWalk · Tiran ücretsiz turları</a></li>
+          <li><a href="https://www.freetour.com/tirana/tirana-walking-tour-culture-history" target="_blank" rel="noopener">FreeTour.com · Tiran yürüyüş turu</a></li>
+          <li><a href="https://www.headout.com/day-trips/tirana-raki-tasting-and-albanian-meze-pairing-guided-by-raki-expert-e-45594/" target="_blank" rel="noopener">Headout · Raki & meze tadımı</a></li>
+          <li><a href="https://www.expedia.com/things-to-do/cooking-classes-and-traditional-food-tasting-in-tirana.a995852.activity-details" target="_blank" rel="noopener">Expedia · Tiran yemek kursu</a></li>
+          <li><a href="https://www.theworlds50best.com/bars/the-list/nouvelle-vague.html" target="_blank" rel="noopener">World's 50 Best Bars · Nouvelle Vague</a></li>
+          <li><a href="https://www.inyourpocket.com/tirana/Hemingway_118543v" target="_blank" rel="noopener">In Your Pocket · Hemingway Bar</a></li>
+          <li><a href="https://www.tirana.al/en/points-of-interest/attractions-and-sights/the-installation-the-cloud-by-sou-fujimoto" target="_blank" rel="noopener">tirana.al · Reja (Sou Fujimoto)</a></li>
+          <li><a href="https://www.visit-tirana.com/?p=5418" target="_blank" rel="noopener">Visit Tirana · Pëllumbas Mağarası</a></li>
+          <li><a href="https://www.civitatis.com/en/tirana/bovilla-lake-gamti-mountain-day-trip" target="_blank" rel="noopener">Civitatis · Bovilla & Gamti yürüyüşü</a></li>
+          <li><a href="https://ca.trip.com/things-to-do/detail/97837465" target="_blank" rel="noopener">Trip.com · Bovilla ATV turu</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Prez%C3%AB_Castle" target="_blank" rel="noopener">Wikipedia · Preza Kalesi</a></li>
+          <li><a href="https://www.inyourpocket.com/albania/tirana/venues/uka-farm" target="_blank" rel="noopener">In Your Pocket · Uka Farm</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Elbasan_Castle" target="_blank" rel="noopener">Wikipedia · Elbasan Kalesi</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/King_Mosque,_Elbasan" target="_blank" rel="noopener">Wikipedia · Elbasan Hünkâr Camii</a></li>
+          <li><a href="https://www.nomads-travel-guide.com/places/skanderbeg-memorial/" target="_blank" rel="noopener">Nomads · İskender Bey Anıt Mezarı</a></li>
+          <li><a href="https://www.tourhq.com/tours/48630/full-day-trip-to-lezhe-mrizi-i-zanave-agrotourism" target="_blank" rel="noopener">TourHQ · Lezhë & Mrizi i Zanave</a></li>
+          <li><a href="https://albania.al/activity/culture/marubi-national-museum-of-photography" target="_blank" rel="noopener">albania.al · Marubi Fotoğraf Müzesi</a></li>
+          <li><a href="https://www.freetour.com/durres/cape-of-rodon-escape-history-coastline-castle-day-tour-from-tirana" target="_blank" rel="noopener">FreeTour.com · Rodon Burnu</a></li>
+          <li><a href="https://albaniantimes.al/?p=8648" target="_blank" rel="noopener">Albanian Times · TKOB Kasım programı</a></li>
+          <li><a href="https://fshf.org/en/abissnet-superiore-will-begin-on-august-22-the-commission-of-leagues-and-competitions-sets-the-calendar-for-the-first-2-matchweeks/" target="_blank" rel="noopener">FSHF · Abissnet Superiore fikstürü</a></li>
         </ul>
       </section>`;
 
@@ -639,7 +662,7 @@
   }
 
   // ── başlat ──
-  renderList(false);
+  renderList(curCat !== "all");
   renderPlans();
   renderInfo();
   updateFavCount();
@@ -651,6 +674,6 @@
     if (HASH_VIEWS[location.hash]) show(HASH_VIEWS[location.hash]);
   });
   show(imported ? "votes" : (hashView || store.get("tg_view", "explore") || "explore"));
-  const openParam = new URLSearchParams(location.search).get("yer");
+  const openParam = QS.get("yer");
   if (openParam && byId[openParam]) openDetail(openParam);
 })();
