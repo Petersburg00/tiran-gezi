@@ -21,3 +21,7 @@ Kısayollar: `#planlar`, `#okuma`, `#bilgiler`, `#oylar`, `?yer=bektashi` (bir m
 
 Harita: Leaflet + OpenFreeMap (© OpenMapTiles, © OpenStreetMap). Görseller: Wikimedia Commons, CC lisanslı.
 Fiyat ve saatler Kasım 2026 araştırmasına dayanıyor. "teyit" işaretli olanlar kaynaklar arasında çelişkili, gitmeden kontrol edin.
+
+---
+
+**Yeni:** Lombardiya & Lugano rehberi (21–26 Kasım) → https://petersburg00.github.io/tiran-gezi/italya/
