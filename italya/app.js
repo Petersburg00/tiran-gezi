@@ -516,7 +516,8 @@
       <span class="tm">${esc(s[0])}</span>
       <span class="no" style="background:${color}">${i + 1}</span>
       <span class="tx">${esc(s[2])}<small>${esc(p.name || "")}${p.status ? " · ⚠️ " + esc(p.status.split(":")[0]) : ""}</small></span>
-      <span class="pr">${p.price ? esc(priceShort(p)) : ""}</span></li>`;
+      <span class="pr">${p.price ? esc(priceShort(p)) : ""}</span>
+      ${p.lat ? `<a class="step-gm" href="${gSearch(p)}" target="_blank" rel="noopener" aria-label="${esc(p.name)}: Google Haritalar'da aç" title="Google Haritalar'da aç">${gmLogo}</a>` : "<span></span>"}</li>`;
   }
   function renderPlans() {
     $("#planPicker").innerHTML = PLANS.map(pl => `<button class="pcard${pl.id === curPlan ? " active" : ""}" data-plan="${pl.id}">
@@ -524,7 +525,7 @@
     const pl = PLANS.find(p => p.id === curPlan);
     const c = planCost(pl);
     const fixedBlock = (title, sub, steps, icon) => `<div class="day fixed"><div class="dayh"><span class="dn" style="background:#222">${svg(icon, 'width="16" height="16"')}</span><div><b>${title}</b><span>${sub}</span></div></div>
-      <ol class="steps">${steps.map((s, i) => `<li class="step"><span class="tm">${esc(s[0])}</span><span class="no" style="background:#222">${i + 1}</span><span class="tx">${esc(s[2])}</span><span></span></li>`).join("")}</ol></div>`;
+      <ol class="steps">${steps.map((s, i) => `<li class="step"><span class="tm">${esc(s[0])}</span><span class="no" style="background:#222">${i + 1}</span><span class="tx">${esc(s[2])}</span><span></span><span></span></li>`).join("")}</ol></div>`;
     $("#planBody").innerHTML = `
       <h2 style="margin-top:0">${esc(pl.name)}</h2>
       <p class="muted">${esc(pl.desc)}</p>
@@ -581,7 +582,7 @@
       if (curDay != null) { const el = $("#day-" + curDay); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }
       return;
     }
-    const s = e.target.closest("[data-step]"); if (s) openDetail(s.dataset.step);
+    if (e.target.closest(".step-gm")) return; const s = e.target.closest("[data-step]"); if (s) openDetail(s.dataset.step);
   });
 
   // ── okuma: yazılar ve rota kitapçığı ──

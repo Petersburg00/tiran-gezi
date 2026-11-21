@@ -354,6 +354,7 @@
     }));
     return { sum, unknown, count: seen.size };
   }
+  const GM_PIN = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6" fill="#fff"/></svg>';
   function stepRow(s, i, color, prev) {
     const p = byId[s[1]] || {};
     let leg = "";
@@ -366,7 +367,8 @@
       <span class="tm">${esc(s[0])}</span>
       <span class="no" style="background:${color}">${i + 1}</span>
       <span class="tx">${esc(s[2])}<small>${esc(p.name || "")}</small></span>
-      <span class="pr">${pr}</span></li>`;
+      <span class="pr">${pr}</span>
+      ${p.lat ? `<a class="step-gm" href="https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}" target="_blank" rel="noopener" aria-label="${esc(p.name)}: Google Haritalar'da aç" title="Google Haritalar'da aç">${GM_PIN}</a>` : "<span></span>"}</li>`;
   }
   function renderPlans() {
     $("#planPicker").innerHTML = PLANS.map(pl => `<button class="pcard${pl.id === curPlan ? " active" : ""}" data-plan="${pl.id}">
@@ -374,7 +376,7 @@
     const pl = PLANS.find(p => p.id === curPlan);
     const c = planCost(pl);
     const fixedBlock = (title, sub, steps, color) => `<div class="day fixed"><div class="dayh"><span class="dn" style="background:${color}">${svg("house", 'width="16" height="16"')}</span><div><b>${title}</b><span>${sub}</span></div></div>
-      <ol class="steps">${steps.map((s, i) => `<li class="step"><span class="tm">${esc(s[0])}</span><span class="no" style="background:${color}">${i + 1}</span><span class="tx">${esc(s[2])}</span><span></span></li>`).join("")}</ol></div>`;
+      <ol class="steps">${steps.map((s, i) => `<li class="step"><span class="tm">${esc(s[0])}</span><span class="no" style="background:${color}">${i + 1}</span><span class="tx">${esc(s[2])}</span><span></span><span></span></li>`).join("")}</ol></div>`;
     $("#planBody").innerHTML = `
       <h2 style="margin-top:0">${esc(pl.name)}</h2>
       <p class="muted">${esc(pl.desc)}</p>
@@ -411,7 +413,7 @@
     const b = e.target.closest("[data-plan]"); if (!b) return;
     curPlan = b.dataset.plan; renderPlans(); drawPlan();
   });
-  $("#planBody").addEventListener("click", e => { const s = e.target.closest("[data-step]"); if (s) openDetail(s.dataset.step); });
+  $("#planBody").addEventListener("click", e => { if (e.target.closest(".step-gm")) return; const s = e.target.closest("[data-step]"); if (s) openDetail(s.dataset.step); });
 
   // ── okuma: tarih yazıları ve rota kitapçığı ──
   let curBook = null;
